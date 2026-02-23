@@ -1,0 +1,71 @@
+// Testar rota /
+GET http://localhost:8787/
+
+###
+
+// Testar busca de CEP por parametro e query
+GET http://localhost:8787/cep/01310100?cep=123
+
+###
+
+//muitos-handlers-ou-middlewares
+GET http://localhost:8787/muitos-handlers-ou-middlewares
+
+###
+
+// Listar todos os recursos
+GET http://localhost:8787/users
+
+###
+
+// Buscar recurso por parametro
+GET http://localhost:8787/cep?cep=01310100
+
+###
+
+// Buscar recurso por ID
+GET http://localhost:8787/users/1
+
+###
+
+// Criar novo recurso
+POST http://localhost:8787/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+
+###
+
+// Atualizar recurso existente
+PUT http://localhost:8787/users/1
+Content-Type: application/json
+
+{
+  "name": "John Updated",
+  "email": "john.updated@example.com"
+}
+
+###
+
+// Deletar recurso
+DELETE http://localhost:8787/users/1
+
+###
+
+// Login e obter token JWT
+POST http://localhost:8787/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "123456"
+}
+
+###
+
+// Acessar rota protegida com token JWT
+GET http://localhost:8787/users
+Authorization: Bearer <cole_seu_token_aqui>
