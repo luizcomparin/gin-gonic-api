@@ -1,7 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"log"
+	"os"
+
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func helloHandler(c *gin.Context) {
@@ -22,6 +27,14 @@ func LogHandler(c *gin.Context) {
 }
 func main() {
 	r := gin.Default()
+
+	errdotenv := godotenv.Load()
+	if errdotenv != nil {
+		fmt.Printf("Erro ao carregar o arquivo .env: %v", errdotenv)
+		log.Fatal("Erro ao carregar o arquivo .env: ", errdotenv)
+		return
+	}
+	fmt.Printf("Env TEST: %s\n", os.Getenv("TEST"))
 
 	r.GET("", helloHandler)
 
