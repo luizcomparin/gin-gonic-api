@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"gin-gonic-api/src/config/logger"
 	"gin-gonic-api/src/controller/routes"
 	"log"
 	"os"
@@ -12,6 +13,7 @@ import (
 
 func main() {
 	r := gin.Default()
+	logger.Info("Iniciando o servidor...")
 
 	errdotenv := godotenv.Load()
 	if errdotenv != nil {
