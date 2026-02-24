@@ -16,10 +16,10 @@ POST http://localhost:8787/user
 Content-Type: application/json
 
 {
-  "name": "123",
-  "password": "1231!23",
+  "name": "13",
+  "password": "123123",
   "email": "john@example.com",
-  "age": 25
+  "age": 253
 }
 
 ###
