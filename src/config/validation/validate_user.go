@@ -54,7 +54,7 @@ func ValidateUserError(validation_err error) *errorhandler.RestErr {
 
 	// Se o erro for de tipo invalido de JSON...
 	if errors.As(validation_err, &jsonErr) {
-		return errorhandler.NewBadRequestError("Campo com tipo invÃ¡lido")
+		return errorhandler.NewBadRequestError("Campo com tipo inválido")
 		// Se o erro for de validacao de campos...
 	} else if errors.As(validation_err, &jsonValidationError) {
 		// Slice (array dinamico) para acumular causas detalhadas.
@@ -72,9 +72,9 @@ func ValidateUserError(validation_err error) *errorhandler.RestErr {
 		}
 
 		// Retorna 400 com lista de causas.
-		return errorhandler.NewBadRequestValidationError("Campos invÃ¡lidos", errorsCauses)
+		return errorhandler.NewBadRequestValidationError("Campos inválidos", errorsCauses)
 	} else {
 		// Fallback para qualquer outro erro nao previsto.
-		return errorhandler.NewBadRequestError("Erro de validaÃ§Ã£o")
+		return errorhandler.NewBadRequestError("Erro de validação")
 	}
 }
