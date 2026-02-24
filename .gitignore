@@ -11,3 +11,5 @@
 .env
 .exe
 .log
+
+tmp/
