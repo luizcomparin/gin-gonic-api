@@ -2,39 +2,37 @@
 GET http://localhost:8787/
 
 ###
-
-// Testar busca de CEP por parametro e query
-GET http://localhost:8787/cep/01310100?cep=123
-
-###
-
-//muitos-handlers-ou-middlewares
-GET http://localhost:8787/muitos-handlers-ou-middlewares
+GET http://localhost:8787/userById/666
 
 ###
 
 // Listar todos os recursos
-GET http://localhost:8787/users
+GET http://localhost:8787/userByEmail/teste@gmail.com
 
 ###
 
-// Buscar recurso por parametro
-GET http://localhost:8787/cep?cep=01310100
+// Criar novo recurso - deve retornar erro (name vazio, password curto)
+POST http://localhost:8787/user
+Content-Type: application/json
+
+{
+  "name": "123",
+  "password": "1231!23",
+  "email": "john@example.com",
+  "age": 25
+}
 
 ###
 
-// Buscar recurso por ID
-GET http://localhost:8787/users/1
-
-###
-
-// Criar novo recurso
-POST http://localhost:8787/users
+// Criar novo recurso - deve retornar sucesso
+POST http://localhost:8787/user
 Content-Type: application/json
 
 {
   "name": "John Doe",
-  "email": "john@example.com"
+  "password": "123456",
+  "email": "john@example.com",
+  "age": 25
 }
 
 ###
