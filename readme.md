@@ -5,10 +5,10 @@ Gin Gonic API
 
 Crie o readme informando todas as informações relevantes do projeto e adicionando links relevantes para consulta:
 
--   Bibliotecas de validação, error management, encrypt, jwt, etc
+-   Bibliotecas de validação: https://github.com/go-playground/validator
+-   error management, encrypt, jwt, etc
 -   Estrutura de pastas
 -   Arquitetura
 -   Endpoints
--
-
-https://github.com/go-playground/validator
+-   Clean Arch
+-   Modelo MVC, separando Model, View e Controller em camadas independentes facilmente testáveis

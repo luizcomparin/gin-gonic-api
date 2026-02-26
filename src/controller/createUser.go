@@ -7,7 +7,7 @@ import (
 	"gin-gonic-api/src/config/validation"
 	"gin-gonic-api/src/controller/model/request"
 	model "gin-gonic-api/src/models"
-	"gin-gonic-api/src/models/services"
+	"gin-gonic-api/src/view"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +18,7 @@ var (
 	UserDomainInterface model.UserDomainInterface
 )
 
-func CreateUser(c *gin.Context) {
+func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 	var userRequest request.UserRequest
 	logger.Info("Init CreateUser controller", zap.String("controller", "CreateUser"))
 	// O ShouldBindJSON transforma a Struct em JSON e valida os campos retornando um erro do tipo BadRequestError
@@ -33,16 +33,19 @@ func CreateUser(c *gin.Context) {
 
 	domain := model.NewUserDomain(userRequest.Name, userRequest.Email, userRequest.Password, userRequest.Age)
 
-	service := services.NewUserDomainService()
-
-	if err := service.CreateUser(domain); err != nil {
+	if err := uc.service.CreateUser(domain); err != nil {
 		logger.Error("Error creating user: ", err, zap.String("controller", "CreateUser"))
 
 		c.JSON(err.Code, err)
 		return
 	}
 
-	logger.Info("User created successfully", zap.String("controller", "CreateUser"))
+	createResponse := view.ConvertDomainToResponse(domain)
 
-	c.String(http.StatusOK, "User created successfully")
+	logger.Info(
+		"User created successfully",
+		zap.String("controller", "CreateUser"),
+	)
+
+	c.JSON(http.StatusOK, createResponse)
 }

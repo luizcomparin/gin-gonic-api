@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"gin-gonic-api/src/config/logger"
+	"gin-gonic-api/src/controller"
 	"gin-gonic-api/src/controller/routes"
+	"gin-gonic-api/src/models/services"
 	"log"
 	"os"
 
@@ -22,7 +24,11 @@ func main() {
 	}
 	fmt.Printf("Env TEST: %s\n", os.Getenv("TEST"))
 
-	routes.InitRoutes((&r.RouterGroup))
+	// Initi dependency injection
+	service := services.NewUserDomainService()
+	userController := controller.NewUserControllerInterface(service)
+
+	routes.InitRoutes(&r.RouterGroup, userController)
 
 	err := r.Run(":8787")
 	if err != nil {
