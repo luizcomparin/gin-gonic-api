@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	errorhandler "gin-gonic-api/src/config/errorHandler"
 	"gin-gonic-api/src/config/logger"
 	model "gin-gonic-api/src/models"
@@ -11,12 +10,22 @@ import (
 
 func (ud *userDomainService) CreateUser(
 	userDomain model.UserDomainInterface,
-) *errorhandler.RestErr {
-	logger.Info("Creating user in the database", zap.String("model", "CreateUser"))
+) (model.UserDomainInterface, *errorhandler.RestErr) {
+	logger.Info("Creating user in the database", zap.String("service", "CreateUser"))
 
 	userDomain.EncryptPassword()
 
-	fmt.Printf("User to be created: %+v\n", userDomain.GetPassword())
+	userDomainRepository, err := ud.userRepository.CreateUser(userDomain)
+	if err != nil {
+		logger.Error("Error trying to call repository", err, zap.String("service", "CreateUser"))
+		return nil, err
+	}
 
-	return nil
+	logger.Info(
+		"User created successfully",
+		zap.String("service", "CreateUser"),
+		zap.String("userID", userDomainRepository.GetID()),
+	)
+
+	return userDomainRepository, nil
 }

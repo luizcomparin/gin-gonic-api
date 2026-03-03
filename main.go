@@ -1,16 +1,19 @@
 package main
 
 import (
-	"fmt"
+	"context"
+	"gin-gonic-api/src/config/database/mongodb"
 	"gin-gonic-api/src/config/logger"
-	"gin-gonic-api/src/controller"
 	"gin-gonic-api/src/controller/routes"
-	"gin-gonic-api/src/models/services"
 	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+)
+
+var (
+	APP_PORT = "APP_PORT"
 )
 
 func main() {
@@ -22,16 +25,18 @@ func main() {
 		log.Fatal("Erro ao carregar o arquivo .env: ", errdotenv)
 		return
 	}
-	fmt.Printf("Env TEST: %s\n", os.Getenv("TEST"))
 
-	// Initi dependency injection
-	service := services.NewUserDomainService()
-	userController := controller.NewUserControllerInterface(service)
+	database, err := mongodb.NewMongoDBConnection(context.Background())
+	if err != nil {
+		log.Fatal("Erro ao conectar ao MongoDB: ", err)
+		return
+	}
+
+	userController := initDependencies(database)
 
 	routes.InitRoutes(&r.RouterGroup, userController)
 
-	err := r.Run(":8787")
-	if err != nil {
+	if err := r.Run(":" + os.Getenv(APP_PORT)); err != nil {
 		log.Fatal("Erro ao iniciar o servidor: ", err)
 	}
 }
