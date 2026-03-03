@@ -4,13 +4,13 @@ Playlist "Meu Primeiro CRUD em GoLang" do canal HunCoding
 https://www.youtube.com/playlist?list=PLm-xZWCprwYQ3gyCxJ8TR1L2ZnUOPvOpr
 
 Próxima aula a ser assistida:
-Criando CreateUser repository - Meu Primeiro CRUD em GoLang | AULA #15
-https://www.youtube.com/watch?v=ElA0CYjgm1M&list=PLm-xZWCprwYQ3gyCxJ8TR1L2ZnUOPvOpr&index=16
+Criando repository de busca do usuário - Meu Primeiro CRUD em GoLang | AULA #18
+https://www.youtube.com/watch?v=Dzmz9mS3U7g&list=PLm-xZWCprwYQ3gyCxJ8TR1L2ZnUOPvOpr&index=19
 
 ## Rodando o projeto
 
--   "> air" para rodar com watch
--   go run main.go
+-   "air" para rodar com watch
+-   "go run main.go"
 
 Crie o readme informando todas as informações relevantes do projeto e adicionando links relevantes para consulta:
 
